@@ -1,0 +1,139 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: #333;
+  font-size: 1.6rem;
+  background-color: #FAFAFA;
+  -webkit-font-smoothing: antialiased;
+}
+
+a, a:visited {
+  color: #0A9297;
+}
+
+footer {
+  text-align: center;
+  margin: 1.6rem 0;
+}
+
+.container {
+  width: 96%;
+  margin: 1.6rem auto;
+  max-width: 76rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+.cal__header button {
+  background: none;
+  border: 0;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-appearance: button;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: pointer;
+}
+
+.cal button:active {
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px rgba(10, 146, 151, 0.1)
+}
+
+.cal {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 4px 22px 0 rgba(0, 0, 0, 0.05);
+  border: solid 1px #e7e9ed;
+}
+
+.cal__header {
+  display: flex;
+  padding: 1.2rem 1.4rem;
+  align-items: center;
+}
+
+.cal__header svg {
+  fill: #0A9297;
+}
+
+.cal__header__label {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cal__week {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #E7E9ED;
+}
+
+.cal__week span {
+  font-size: 1.2rem;
+  max-width: 14.28%;
+  padding: 1.2rem 1.4rem;
+  flex: 0 0 14.28%;
+  flex-direction: column;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cal__body {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fafafa;
+}
+
+.cal__date {
+  background-color: #fff;
+  display: flex;
+  max-width: 14.28%;
+  flex: 0 0 14.28%;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.2rem 0;
+}
+
+.cal__date--active:hover {
+  background-color: #E7E9ED;
+  cursor: pointer;
+}
+
+.cal__date span {
+  padding: 0.6rem;
+}
+
+.cal__date--today span {
+  background-color: #0A9297;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 100px;
+}
+
+.cal__date--disabled {
+  opacity: 0.5;
+}
+
+.cal__date--disabled:hover {
+  cursor: not-allowed;
+}
