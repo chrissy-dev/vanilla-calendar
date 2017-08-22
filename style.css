@@ -112,22 +112,21 @@ h1 {
   flex-direction: column;
   align-items: center;
   padding: 1.2rem 0;
+  border-radius: 4px;
 }
 
 .cal__date--active:hover {
-  background-color: #E7E9ED;
   cursor: pointer;
 }
 
-.cal__date span {
-  padding: 0.6rem;
-}
-
-.cal__date--today span {
+.cal__date--today {
   background-color: #0A9297;
   color: #fff;
-  font-weight: bold;
-  border-radius: 100px;
+}
+
+.cal__date--selected {
+  background-color: #E7E9ED;
+  color: #333;
 }
 
 .cal__date--disabled {
@@ -136,4 +135,13 @@ h1 {
 
 .cal__date--disabled:hover {
   cursor: not-allowed;
+}
+
+.demo-picked {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.demo-picked span {
+  font-weight: bold;
 }
