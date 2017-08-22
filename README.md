@@ -17,3 +17,5 @@ Usage
 	})
 </script>
 ```
+
+> This isn't ready to be used in a production application out the box, it's more of a hacked together project. Fork it and make it better!
