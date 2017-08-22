@@ -4,11 +4,12 @@ window.addEventListener('load', function () {
   var calendar = document.querySelectorAll('[data-calendar-area="month"]')[0]
   var nextButton = document.querySelectorAll('[data-calendar-toggle="next"]')[0]
   var prevButton = document.querySelectorAll('[data-calendar-toggle="previous"]')[0]
+  var activeDates
 
   date.setDate(1)
   createMonth()
 
-  function createCalendarDay(num, day, year) {
+  function createCalendarDay (num, day, year) {
     var newDay = document.createElement('div')
 
     var dateEl = document.createElement('span')
@@ -39,7 +40,7 @@ window.addEventListener('load', function () {
   }
 
   // Creates and populates all of the days to make up the month
-  function createMonth() {
+  function createMonth () {
     var currentMonth = date.getMonth()
     while (date.getMonth() === currentMonth) {
       createCalendarDay(date.getDate(), date.getDay(), date.getFullYear())
@@ -55,7 +56,7 @@ window.addEventListener('load', function () {
   }
 
   // Clears all days from the calendar
-  function clearCalendar() {
+  function clearCalendar () {
     calendar.innerHTML = ''
   }
 
@@ -74,7 +75,7 @@ window.addEventListener('load', function () {
     createMonth()
   })
 
-  function activeAction() {
+  function activeAction () {
     activeDates = document.querySelectorAll('[data-calendar-status="active"]')
     for (var i = 0; i < activeDates.length; i++) {
       activeDates[i].addEventListener('click', function (event) {
@@ -82,18 +83,18 @@ window.addEventListener('load', function () {
         picked.innerHTML = this.dataset.calendarDate
         removeActiveClass()
         this.classList.add('cal__date--selected')
-      });
+      })
     }
   }
 
-  function removeActiveClass() {
+  function removeActiveClass () {
     for (var i = 0; i < activeDates.length; i++) {
       activeDates[i].classList.remove('cal__date--selected')
     }
   }
 
   // Converts month ids to the relevant string
-  function monthsAsString(monthIndex) {
+  function monthsAsString (monthIndex) {
     return [
       'January',
       'Febuary',
