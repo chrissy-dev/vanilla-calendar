@@ -15,6 +15,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.logo {
+  margin: 1.6rem auto;
+  text-align: center;
+}
+
 a, a:visited {
   color: #0A9297;
 }
@@ -28,6 +33,7 @@ footer {
   width: 96%;
   margin: 1.6rem auto;
   max-width: 76rem;
+  text-align: center;
 }
 
 h1 {
