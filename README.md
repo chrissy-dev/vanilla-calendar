@@ -1,4 +1,4 @@
-# Vanilla JS Calendar
+# Vanilla JS Calendar 🍦
 
 Create a minified version
 > UglifyJS is required
@@ -12,10 +12,12 @@ Usage
 ```html
 <script src="vanillacalendar.js" type="text/javascript"></script>
 <script>
-	window.addEventListener('load', function () {
-	  vanillacalendar.init();
-	})
+window.addEventListener('load', function () {
+  vanillacalendar.init();
+})
 </script>
 ```
+
+### I encourage everyone to hack away at this!
 
 > This isn't ready to be used in a production application out the box, it's more of a hacked together project. Fork it and make it better!
