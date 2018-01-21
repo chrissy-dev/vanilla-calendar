@@ -7,109 +7,212 @@ var vanillacalendar = {
   date: new Date(),
   todaysDate: new Date(),
 
+  // Switch Language: [en|de|nl|fr] - default=en
+  lang: 'en',
+
   init: function () {
-    this.date.setDate(1)
-    this.createMonth()
-    this.createListeners()
+      this.date.setDate(1)
+      this.createMonth()
+      this.createListeners()
   },
 
   createListeners: function () {
-    var _this = this
-    this.next.addEventListener('click', function () {
-      _this.clearCalendar()
-      var nextMonth = _this.date.getMonth() + 1
-      _this.date.setMonth(nextMonth)
-      _this.createMonth()
-    })
-    // Clears the calendar and shows the previous month
-    this.previous.addEventListener('click', function () {
-      _this.clearCalendar()
-      var prevMonth = _this.date.getMonth() - 1
-      _this.date.setMonth(prevMonth)
-      _this.createMonth()
-    })
+      var _this = this
+      this.next.addEventListener('click', function () {
+          _this.clearCalendar()
+          var nextMonth = _this.date.getMonth() + 1
+          _this.date.setMonth(nextMonth)
+          _this.createMonth()
+      })
+      // Clears the calendar and shows the previous month
+      this.previous.addEventListener('click', function () {
+          _this.clearCalendar()
+          var prevMonth = _this.date.getMonth() - 1
+          _this.date.setMonth(prevMonth)
+          _this.createMonth()
+      })
   },
 
   createDay: function (num, day, year) {
-    var newDay = document.createElement('div')
-    var dateEl = document.createElement('span')
-    dateEl.innerHTML = num
-    newDay.className = 'cal__date'
-    newDay.setAttribute('data-calendar-date', this.date)
+      var newDay = document.createElement('div')
+      var dateEl = document.createElement('span')
+      dateEl.innerHTML = num
+      newDay.className = 'cal__date'
+      newDay.setAttribute('data-calendar-date', this.date)
 
-    if (num === 1) {
-      var offset = ((day - 1) * 14.28)
-      if (offset > 0) {
-        newDay.style.marginLeft = offset + '%'
+      if (num === 1) {
+          var offset = ((day - 1) * 14.28)
+          if (offset > 0) {
+              newDay.style.marginLeft = offset + '%'
+          }
       }
-    }
 
-    if (this.date.getTime() <= this.todaysDate.getTime() - 1) {
-      newDay.classList.add('cal__date--disabled')
-    } else {
-      newDay.classList.add('cal__date--active')
-      newDay.setAttribute('data-calendar-status', 'active')
-    }
+      if (this.date.getTime() <= this.todaysDate.getTime() - 1) {
+          newDay.classList.add('cal__date--disabled')
+      } else {
+          newDay.classList.add('cal__date--active')
+          newDay.setAttribute('data-calendar-status', 'active')
+      }
 
-    if (this.date.toString() === this.todaysDate.toString()) {
-      newDay.classList.add('cal__date--today')
-    }
+      if (this.date.toString() === this.todaysDate.toString()) {
+          newDay.classList.add('cal__date--today')
+      }
 
-    newDay.appendChild(dateEl)
-    this.month.appendChild(newDay)
+      newDay.appendChild(dateEl)
+      this.month.appendChild(newDay)
+
   },
 
   dateClicked: function () {
-    var _this = this
-    this.activeDates = document.querySelectorAll('[data-calendar-status="active"]')
-    for (var i = 0; i < this.activeDates.length; i++) {
-      this.activeDates[i].addEventListener('click', function (event) {
-        var picked = document.querySelectorAll('[data-calendar-label="picked"]')[0]
-        picked.innerHTML = this.dataset.calendarDate
-        _this.removeActiveClass()
-        this.classList.add('cal__date--selected')
-      })
-    }
+      var _this = this
+      this.activeDates = document.querySelectorAll('[data-calendar-status="active"]')
+      for (var i = 0; i < this.activeDates.length; i++) {
+          this.activeDates[i].addEventListener('click', function (event) {
+              var picked = document.querySelectorAll('[data-calendar-label="picked"]')[0]
+              picked.innerHTML = this.dataset.calendarDate
+              _this.removeActiveClass()
+              this.classList.add('cal__date--selected')
+          })
+      }
   },
 
   createMonth: function () {
-    var currentMonth = this.date.getMonth()
-    while (this.date.getMonth() === currentMonth) {
-      this.createDay(this.date.getDate(), this.date.getDay(), this.date.getFullYear())
-      this.date.setDate(this.date.getDate() + 1)
-    }
-    // while loop trips over and day is at 30/31, bring it back
-    this.date.setDate(1)
-    this.date.setMonth(this.date.getMonth() - 1)
+      var currentMonth = this.date.getMonth()
+      while (this.date.getMonth() === currentMonth) {
+          this.createDay(this.date.getDate(), this.date.getDay(), this.date.getFullYear())
+          this.date.setDate(this.date.getDate() + 1)
+      }
+      // while loop trips over and day is at 30/31, bring it back
+      this.date.setDate(1)
+      this.date.setMonth(this.date.getMonth() - 1)
 
-    this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
-    this.dateClicked()
+      this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
+      this.dateClicked()
+  },
+
+  weekAsString: function (weekIndex) {
+      switch (this.lang) {
+          case 'en':
+              return [
+                  'Mon',
+                  'Tue',
+                  'Wed',
+                  'Thu',
+                  'Fri',
+                  'Sat',
+                  'Sun'
+              ][weekIndex]
+          case 'de':
+              return [
+                  'Mo',
+                  'Di',
+                  'Mi',
+                  'Do',
+                  'Fr',
+                  'Sa',
+                  'So'
+              ][weekIndex]
+          default:
+              return [
+                  'Mon',
+                  'Tue',
+                  'Wed',
+                  'Thu',
+                  'Fri',
+                  'Sat',
+                  'Sun'
+              ][weekIndex]
+      }
   },
 
   monthsAsString: function (monthIndex) {
-    return [
-      'January',
-      'Febuary',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ][monthIndex]
+
+      switch (this.lang) {
+          case 'en':
+              return [
+                  'January',
+                  'Febuary',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December'
+              ][monthIndex]
+          case 'de':
+              return [
+                  'Januar',
+                  'Februar',
+                  'März',
+                  'April',
+                  'Mai',
+                  'Juni',
+                  'Juli',
+                  'August',
+                  'September',
+                  'Oktober',
+                  'November',
+                  'Dezember'
+              ][monthIndex]
+          case 'nl':
+              return [
+                  'januari',
+                  'februari',
+                  'maart',
+                  'april',
+                  'mei',
+                  'juni',
+                  'juli',
+                  'augustus',
+                  'september',
+                  'oktober',
+                  'november',
+                  'december'
+              ][monthIndex]
+          case 'fr':
+              return [
+                  'janvier',
+                  'février',
+                  'mars',
+                  'avril',
+                  'mai',
+                  'juin',
+                  'juillet',
+                  'août',
+                  'septembre',
+                  'octobre',
+                  'novembre',
+                  'décembre'
+              ][monthIndex]
+          default:
+              return [
+                  'January',
+                  'Febuary',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December'
+              ][monthIndex]
+      }
   },
 
   clearCalendar: function () {
-    vanillacalendar.month.innerHTML = ''
+      vanillacalendar.month.innerHTML = ''
   },
 
   removeActiveClass: function () {
-    for (var i = 0; i < this.activeDates.length; i++) {
-      this.activeDates[i].classList.remove('cal__date--selected')
-    }
+      for (var i = 0; i < this.activeDates.length; i++) {
+          this.activeDates[i].classList.remove('cal__date--selected')
+      }
   }
 }
