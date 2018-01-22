@@ -1,4 +1,4 @@
-var vanillacalendar = {
+var vanillaCalendar = {
   month: document.querySelectorAll('[data-calendar-area="month"]')[0],
   next: document.querySelectorAll('[data-calendar-toggle="next"]')[0],
   previous: document.querySelectorAll('[data-calendar-toggle="previous"]')[0],
@@ -104,7 +104,7 @@ var vanillacalendar = {
   },
 
   clearCalendar: function () {
-    vanillacalendar.month.innerHTML = ''
+    vanillaCalendar.month.innerHTML = ''
   },
 
   removeActiveClass: function () {
