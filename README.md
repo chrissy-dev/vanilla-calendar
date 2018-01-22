@@ -1,21 +1,28 @@
 # Vanilla JS Calendar 🍦
 
-Create a minified version
-> UglifyJS is required
-
-```bash
-uglifyjs vanillacalendar.js -o dist/vanillacalendar.min.js
-```
-
-Usage
+#### Usage
 
 ```html
-<script src="vanillacalendar.js" type="text/javascript"></script>
+<script src="vanillaCalendar.js" type="text/javascript"></script>
 <script>
 window.addEventListener('load', function () {
-  vanillacalendar.init();
+  vanillaCalendar.init();
 })
 </script>
+```
+
+### Development
+
+1. Install dependencies
+
+```bash
+npm install
+```
+
+2. Watch JS/CSS
+
+```bash
+npm run watch
 ```
 
 ### I encourage everyone to hack away at this!
