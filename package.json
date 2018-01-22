@@ -1,0 +1,33 @@
+{
+  "name": "vanilla-calendar",
+  "version": "1.0.0",
+  "description": "A simple, hackable vanilla JS calendar",
+  "main": "./src/vanillaCalendar.js",
+  "scripts": {
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://chrisssycollins@github.com/chrisssycollins/vanilla-calendar.git"
+  },
+  "keywords": [
+    "vanilla",
+    "calendar",
+    "javascript"
+  ],
+  "author": "Chrissy Collins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisssycollins/vanilla-calendar/issues"
+  },
+  "homepage": "https://github.com/chrisssycollins/vanilla-calendar#readme",
+  "devDependencies": {
+    "cssnano": "^3.10.0",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.1",
+    "gulp-uglify": "^3.0.0",
+    "postcss": "^6.0.16",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-hexrgba": "^1.0.0"
+  }
+}

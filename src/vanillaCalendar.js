@@ -34,7 +34,7 @@ var vanillacalendar = {
     var newDay = document.createElement('div')
     var dateEl = document.createElement('span')
     dateEl.innerHTML = num
-    newDay.className = 'cal__date'
+    newDay.className = 'vcal-date'
     newDay.setAttribute('data-calendar-date', this.date)
 
     if (num === 1) {
@@ -45,14 +45,14 @@ var vanillacalendar = {
     }
 
     if (this.date.getTime() <= this.todaysDate.getTime() - 1) {
-      newDay.classList.add('cal__date--disabled')
+      newDay.classList.add('vcal-date--disabled')
     } else {
-      newDay.classList.add('cal__date--active')
+      newDay.classList.add('vcal-date--active')
       newDay.setAttribute('data-calendar-status', 'active')
     }
 
     if (this.date.toString() === this.todaysDate.toString()) {
-      newDay.classList.add('cal__date--today')
+      newDay.classList.add('vcal-date--today')
     }
 
     newDay.appendChild(dateEl)
@@ -67,7 +67,7 @@ var vanillacalendar = {
         var picked = document.querySelectorAll('[data-calendar-label="picked"]')[0]
         picked.innerHTML = this.dataset.calendarDate
         _this.removeActiveClass()
-        this.classList.add('cal__date--selected')
+        this.classList.add('vcal-date--selected')
       })
     }
   },
@@ -109,7 +109,7 @@ var vanillacalendar = {
 
   removeActiveClass: function () {
     for (var i = 0; i < this.activeDates.length; i++) {
-      this.activeDates[i].classList.remove('cal__date--selected')
+      this.activeDates[i].classList.remove('vcal-date--selected')
     }
   }
 }
