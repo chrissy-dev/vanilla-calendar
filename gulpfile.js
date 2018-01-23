@@ -1,28 +1,35 @@
 var gulp = require('gulp')
 var postcss = require('gulp-postcss')
+var cssnext = require('postcss-cssnext')
+var csshex = require('postcss-hexrgba')
+var cssnano = require('cssnano')
 var uglify = require('gulp-uglify')
+
+var CSS_PATH = './src/**/*.css';
+var JS_PATH = './src/**/*.js';
+var DIST_PATH = './dist'
 
 gulp.task('css', function () {
   return (
-    gulp.src('./src/*.css')
+    gulp.src(CSS_PATH)
     .pipe(postcss([
-      require('postcss-cssnext')(),
-      require('postcss-hexrgba'),
-      require('cssnano')
+      cssnext({warnForDuplicates: false}),
+      csshex(),
+      cssnano(),
     ]))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest(DIST_PATH))
   )
 })
 
 gulp.task('js', function () {
   return (
-    gulp.src('./src/*.js')
+    gulp.src(JS_PATH)
     .pipe(uglify())
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest(DIST_PATH))
   )
 })
 
 gulp.task('watch', function () {
-  gulp.watch('./src/**/*.css', ['css'])
-  gulp.watch('./src/**/*.js', ['js'])
+  gulp.watch(CSS_PATH, ['css'])
+  gulp.watch(JS_PATH, ['js'])
 })
