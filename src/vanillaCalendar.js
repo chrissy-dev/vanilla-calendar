@@ -7,7 +7,9 @@ var vanillaCalendar = {
   date: new Date(),
   todaysDate: new Date(),
 
-  init: function() {
+  init: function(params) {
+    this.params = params;
+
     this.date.setDate(1);
     this.createMonth();
     this.createListeners();
@@ -46,7 +48,9 @@ var vanillaCalendar = {
       }
     }
 
-    if (this.date.getTime() <= this.todaysDate.getTime() - 1) {
+    var pastDaysDisabled = this.params && this.params['disablePastDays'];
+    if (pastDaysDisabled &&
+        this.date.getTime() <= this.todaysDate.getTime() - 1) {
       newDay.classList.add("vcal-date--disabled");
     } else {
       newDay.classList.add("vcal-date--active");
