@@ -7,6 +7,12 @@ var vanillaCalendar = {
   date: new Date(),
   todaysDate: new Date(),
 
+  /**
+   * Valid options:
+   * 
+   * disablePastDays
+   * 
+   */
   init: function (options) {
     this.options = options
     this.date.setDate(1)
