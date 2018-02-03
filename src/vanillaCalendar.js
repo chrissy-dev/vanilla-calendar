@@ -1,3 +1,11 @@
+var classes = {
+  date: 'vcal-date',
+  dateDisabled: 'vcal-date--disabled',
+  dateActive: 'vcal-date--active',
+  dateToday: 'vcal-date--today',
+  dateSelected: 'vcal-date--selected'
+};
+
 var vanillaCalendar = {
   month: document.querySelectorAll('[data-calendar-area="month"]')[0],
   next: document.querySelectorAll('[data-calendar-toggle="next"]')[0],
@@ -41,7 +49,7 @@ var vanillaCalendar = {
     var newDay = document.createElement('div')
     var dateEl = document.createElement('span')
     dateEl.innerHTML = num
-    newDay.className = 'vcal-date'
+    newDay.className = classes.date
     newDay.setAttribute('data-calendar-date', this.date)
 
     // if it's the first day of the month
@@ -55,14 +63,14 @@ var vanillaCalendar = {
 
     if (this.options && this.options.disablePastDays &&
         this.date.getTime() <= this.todaysDate.getTime() - 1) {
-      newDay.classList.add('vcal-date--disabled')
+      newDay.classList.add(classes.dateDisabled)
     } else {
-      newDay.classList.add('vcal-date--active')
+      newDay.classList.add(classes.dateActive)
       newDay.setAttribute('data-calendar-status', 'active')
     }
 
     if (this.date.toString() === this.todaysDate.toString()) {
-      newDay.classList.add('vcal-date--today')
+      newDay.classList.add(classes.dateToday)
     }
 
     newDay.appendChild(dateEl)
@@ -81,7 +89,7 @@ var vanillaCalendar = {
         )[0]
         picked.innerHTML = this.dataset.calendarDate
         _this.removeActiveClass()
-        this.classList.add('vcal-date--selected')
+        this.classList.add(classes.dateSelected)
       })
     }
   },
@@ -128,7 +136,7 @@ var vanillaCalendar = {
 
   removeActiveClass: function () {
     for (var i = 0; i < this.activeDates.length; i++) {
-      this.activeDates[i].classList.remove('vcal-date--selected')
+      this.activeDates[i].classList.remove(classes.dateSelected)
     }
   }
 }
