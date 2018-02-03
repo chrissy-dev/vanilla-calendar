@@ -1,53 +1,74 @@
-var classes = {
+const classes = {
   date: 'vcal-date',
   dateDisabled: 'vcal-date--disabled',
   dateActive: 'vcal-date--active',
   dateToday: 'vcal-date--today',
   dateSelected: 'vcal-date--selected'
-};
+}
 
-var vanillaCalendar = {
-  month: document.querySelectorAll('[data-calendar-area="month"]')[0],
-  next: document.querySelectorAll('[data-calendar-toggle="next"]')[0],
-  previous: document.querySelectorAll('[data-calendar-toggle="previous"]')[0],
-  label: document.querySelectorAll('[data-calendar-label="month"]')[0],
-  activeDates: null,
-  date: new Date(),
-  todaysDate: new Date(),
+class VanillaCalendar {
+
+  constructor () {
+    this.months = [
+      'January',
+      'Febuary',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+
+    this.calendar = document.getElementById('v-cal')
+
+    this.activeDates = null
+    this.date = new Date()
+    this.todaysDate = new Date()
+
+    this.init({
+      disablePastDays: false
+    })
+  }
 
   /**
    * Valid options:
-   * 
    * disablePastDays
-   * 
+   *
    */
-  init: function (options) {
+  init (options) {
     this.options = options
+    this.render()
+
     this.date.setDate(1)
     this.createMonth()
     this.createListeners()
-  },
+  }
 
-  createListeners: function () {
-    var _this = this
+  createListeners () {
+    const _this = this
     this.next.addEventListener('click', function () {
       _this.clearCalendar()
-      var nextMonth = _this.date.getMonth() + 1
+      const nextMonth = _this.date.getMonth() + 1
       _this.date.setMonth(nextMonth)
       _this.createMonth()
     })
     // Clears the calendar and shows the previous month
     this.previous.addEventListener('click', function () {
       _this.clearCalendar()
-      var prevMonth = _this.date.getMonth() - 1
+      const prevMonth = _this.date.getMonth() - 1
       _this.date.setMonth(prevMonth)
       _this.createMonth()
     })
-  },
+  }
 
-  createDay: function (num, day, year) {
-    var newDay = document.createElement('div')
-    var dateEl = document.createElement('span')
+  createDay (num, day) {
+    const newDay = document.createElement('div')
+    const dateEl = document.createElement('span')
     dateEl.innerHTML = num
     newDay.className = classes.date
     newDay.setAttribute('data-calendar-date', this.date)
@@ -75,16 +96,16 @@ var vanillaCalendar = {
 
     newDay.appendChild(dateEl)
     this.month.appendChild(newDay)
-  },
+  }
 
-  dateClicked: function () {
-    var _this = this
+  dateClicked () {
+    const _this = this
     this.activeDates = document.querySelectorAll(
       '[data-calendar-status="active"]'
     )
-    for (var i = 0; i < this.activeDates.length; i++) {
-      this.activeDates[i].addEventListener('click', function (event) {
-        var picked = document.querySelectorAll(
+    for (let i = 0; i < this.activeDates.length; i++) {
+      this.activeDates[i].addEventListener('click', function () {
+        const picked = document.querySelectorAll(
           '[data-calendar-label="picked"]'
         )[0]
         picked.innerHTML = this.dataset.calendarDate
@@ -92,10 +113,10 @@ var vanillaCalendar = {
         this.classList.add(classes.dateSelected)
       })
     }
-  },
+  }
 
-  createMonth: function () {
-    var currentMonth = this.date.getMonth()
+  createMonth () {
+    const currentMonth = this.date.getMonth()
     while (this.date.getMonth() === currentMonth) {
       this.createDay(
         this.date.getDate(),
@@ -111,32 +132,55 @@ var vanillaCalendar = {
     this.label.innerHTML =
       this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
     this.dateClicked()
-  },
+  }
 
-  monthsAsString: function (monthIndex) {
-    return [
-      'January',
-      'Febuary',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ][monthIndex]
-  },
+  monthsAsString (monthIndex) {
+    return this.months[monthIndex]
+  }
 
-  clearCalendar: function () {
-    vanillaCalendar.month.innerHTML = ''
-  },
+  clearCalendar () {
+    this.month.innerHTML = ''
+  }
 
-  removeActiveClass: function () {
-    for (var i = 0; i < this.activeDates.length; i++) {
+  removeActiveClass () {
+    for (let i = 0; i < this.activeDates.length; i++) {
       this.activeDates[i].classList.remove(classes.dateSelected)
     }
   }
+
+  render () {
+    this.calendar.innerHTML = `<div class="vcal-header">
+      <button class="vcal-btn" data-calendar-toggle="previous">
+        <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
+        </svg>
+      </button>
+      <div class="vcal-header__label" data-calendar-label="month">
+        March 2017
+      </div>
+      <button class="vcal-btn" data-calendar-toggle="next">
+        <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="vcal-week">
+      <span>Mon</span>
+      <span>Tue</span>
+      <span>Wed</span>
+      <span>Thu</span>
+      <span>Fri</span>
+      <span>Sat</span>
+      <span>Sun</span>
+    </div>
+    <div class="vcal-body" data-calendar-area="month"></div>`
+
+    this.month = this.calendar.querySelectorAll('[data-calendar-area="month"]')[0]
+    this.next = this.calendar.querySelectorAll('[data-calendar-toggle="next"]')[0]
+    this.previous = this.calendar.querySelectorAll('[data-calendar-toggle="previous"]')[0]
+    this.label = this.calendar.querySelectorAll('[data-calendar-label="month"]')[0]
+  }
 }
+
+
+export default new VanillaCalendar()
