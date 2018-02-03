@@ -1,13 +1,15 @@
 /* global __dirname, require, module*/
 
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const resolve = (dir) => path.join(__dirname, '..', dir)
 
 module.exports = {
     entry: './src/vanillaCalendar.js',
     output: {
-        filename: './dist/vanillaCalendar.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'vanillaCalendar.js'
     },
     module: {
         loaders: [
@@ -24,5 +26,10 @@ module.exports = {
                 query: { presets: ['es2015'] }
             }
         ]
-    }
+    },
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: 'src' }
+        ])
+    ]
 };
