@@ -53,7 +53,8 @@ var vanillaCalendar = {
       }
     }
 
-    if (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) {
+    if (this.options && this.options.disablePastDays &&
+        this.date.getTime() <= this.todaysDate.getTime() - 1) {
       newDay.classList.add('vcal-date--disabled')
     } else {
       newDay.classList.add('vcal-date--active')
