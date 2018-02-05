@@ -8,6 +8,8 @@ All notable changes in this project is documented in this file.
 - Eslint for establishing and maintaining a code style
 - Babel for transpiling from ES6
 - Webpack for bundling
+- Initialize library from HTML file
+- ES6 to ES2015 transformation
 
 ### Changed
 - Component markup moved into the source code.
