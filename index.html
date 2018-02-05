@@ -8,7 +8,7 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<meta content="Chrissy Collins" name="author">
 	<meta content="A pure vanilla JS calendar by @chrisssycollins" name="description">
-	<link href="dist/vanillaCalendar.css" rel="stylesheet">
+	<link href="vanillaCalendar.css" rel="stylesheet">
 	<style>
 		html {
 			box-sizing: border-box;
@@ -94,7 +94,12 @@
 			<a href="https://github.com/chrisssycollins/vanilla-calendar">View on GitHub</a>
 		</footer>
 	</div>
-	<script src="dist/vanillaCalendar.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		const vanillaCalendar = new VanillaCalendar.default(document.getElementById('v-cal'))
+		vanillaCalendar.init({
+			disablePastDays: false
+		})
+	</script>
 </body>
 
 </html>
