@@ -1,3 +1,5 @@
+/* eslint max-len:off */
+
 const classes = {
   date: 'vcal-date',
   dateDisabled: 'vcal-date--disabled',
@@ -7,8 +9,7 @@ const classes = {
 }
 
 class VanillaCalendar {
-
-  constructor () {
+  constructor (calendarEl) {
     this.months = [
       'January',
       'Febuary',
@@ -24,15 +25,11 @@ class VanillaCalendar {
       'December'
     ]
 
-    this.calendar = document.getElementById('v-cal')
+    this.calendar = calendarEl
 
     this.activeDates = null
     this.date = new Date()
     this.todaysDate = new Date()
-
-    this.init({
-      disablePastDays: false
-    })
   }
 
   /**
@@ -57,7 +54,7 @@ class VanillaCalendar {
       _this.date.setMonth(nextMonth)
       _this.createMonth()
     })
-    // Clears the calendar and shows the previous month
+
     this.previous.addEventListener('click', function () {
       _this.clearCalendar()
       const prevMonth = _this.date.getMonth() - 1
@@ -182,5 +179,4 @@ class VanillaCalendar {
   }
 }
 
-
-export default new VanillaCalendar()
+export default VanillaCalendar
