@@ -5,37 +5,40 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-const resolve = (dir) => path.join(__dirname, '..', dir)
-
 module.exports = {
     entry: './src/vanillaCalendar.js',
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'vanillaCalendar.js'
+        filename: 'vanillaCalendar.js',
+        libraryTarget: 'umd',
+        library: 'VanillaCalendar'
     },
     module: {
         loaders: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'eslint-loader'
+                use: {
+                    loader: 'eslint-loader'
+                },
+                enforce: 'pre'
             },
             {
                 test: /\.js$/,
-                include: [resolve('src')],
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: { presets: ['es2015'] }
-            }
+                use: {
+                   loader: 'babel-loader',
+                   options: { presets: ['es2015'] }
+                }
+             }
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([
-            { from: 'src' }
-        ]),
+        new CopyWebpackPlugin([{ from: 'src' }]),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
+            inject: 'head',
             template: 'index.html'
         })
     ]
