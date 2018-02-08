@@ -12,7 +12,7 @@ class VanillaCalendar {
   constructor (calendarEl) {
     this.months = [
       'January',
-      'Febuary',
+      'February',
       'March',
       'April',
       'May',
@@ -46,21 +46,23 @@ class VanillaCalendar {
     this.createListeners()
   }
 
-  createListeners () {
-    const _this = this
-    this.next.addEventListener('click', function () {
-      _this.clearCalendar()
-      const nextMonth = _this.date.getMonth() + 1
-      _this.date.setMonth(nextMonth)
-      _this.createMonth()
-    })
+  onNext () {
+    this.clearCalendar()
+    const nextMonth = this.date.getMonth() + 1
+    this.date.setMonth(nextMonth)
+    this.createMonth()
+  }
 
-    this.previous.addEventListener('click', function () {
-      _this.clearCalendar()
-      const prevMonth = _this.date.getMonth() - 1
-      _this.date.setMonth(prevMonth)
-      _this.createMonth()
-    })
+  onPrevious () {
+    this.clearCalendar()
+    const prevMonth = this.date.getMonth() - 1
+    this.date.setMonth(prevMonth)
+    this.createMonth()
+  }
+
+  createListeners () {
+    this.next.addEventListener('click', this.onNext.bind(this))
+    this.previous.addEventListener('click', this.onPrevious.bind(this))
   }
 
   createDay (num, day) {
