@@ -2,12 +2,10 @@
 
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
     entry: './src/vanillaCalendar.js',
-    devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'vanillaCalendar.js',
@@ -35,11 +33,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([{ from: 'src' }]),
-        new CleanWebpackPlugin(['dist']),
-        new HtmlWebpackPlugin({
-            inject: 'head',
-            template: 'index.html'
-        })
+        new CopyWebpackPlugin([{
+            from: 'src',
+            ignore: ['index.html']
+        }]),
+        new CleanWebpackPlugin(['dist'])
     ]
 };
