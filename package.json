@@ -4,9 +4,9 @@
   "description": "A simple, hackable vanilla JS calendar",
   "main": "./src/vanillaCalendar.js",
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "dev": "npm run watch &  webpack-dev-server --content-base "
+    "build": "webpack --config webpack.config.dist.js",
+    "generateDocs": "webpack --config webpack.config.dev.js",
+    "dev": "webpack-dev-server --config webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
