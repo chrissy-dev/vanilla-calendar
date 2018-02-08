@@ -9,7 +9,7 @@ const classes = {
 }
 
 class VanillaCalendar {
-  constructor (calendarEl) {
+  constructor (calendarSelector) {
     this.months = [
       'January',
       'February',
@@ -25,7 +25,7 @@ class VanillaCalendar {
       'December'
     ]
 
-    this.calendar = document.querySelector(calendarEl)
+    this.calendarEl = document.querySelector(calendarSelector)
 
     this.activeDates = null
     this.date = new Date()
@@ -61,8 +61,8 @@ class VanillaCalendar {
   }
 
   createListeners () {
-    this.next.addEventListener('click', this.onNext.bind(this))
-    this.previous.addEventListener('click', this.onPrevious.bind(this))
+    this.nextBtnEl.addEventListener('click', this.onNext.bind(this))
+    this.previousBtnEl.addEventListener('click', this.onPrevious.bind(this))
   }
 
   createDay (num, day) {
@@ -94,7 +94,7 @@ class VanillaCalendar {
     }
 
     newDay.appendChild(dateEl)
-    this.month.appendChild(newDay)
+    this.monthContainerEl.appendChild(newDay)
   }
 
   dateClicked () {
@@ -128,7 +128,7 @@ class VanillaCalendar {
     this.date.setDate(1)
     this.date.setMonth(this.date.getMonth() - 1)
 
-    this.label.innerHTML =
+    this.monthLabelEl.innerHTML =
       this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
     this.dateClicked()
   }
@@ -138,7 +138,7 @@ class VanillaCalendar {
   }
 
   clearCalendar () {
-    this.month.innerHTML = ''
+    this.monthContainerEl.innerHTML = ''
   }
 
   removeActiveClass () {
@@ -148,7 +148,7 @@ class VanillaCalendar {
   }
 
   render () {
-    this.calendar.innerHTML = `<div class="vcal-header">
+    this.calendarEl.innerHTML = `<div class="vcal-header">
       <button class="vcal-btn" data-calendar-toggle="previous">
         <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
@@ -174,10 +174,10 @@ class VanillaCalendar {
     </div>
     <div class="vcal-body" data-calendar-area="month"></div>`
 
-    this.month = this.calendar.querySelectorAll('[data-calendar-area="month"]')[0]
-    this.next = this.calendar.querySelectorAll('[data-calendar-toggle="next"]')[0]
-    this.previous = this.calendar.querySelectorAll('[data-calendar-toggle="previous"]')[0]
-    this.label = this.calendar.querySelectorAll('[data-calendar-label="month"]')[0]
+    this.monthContainerEl = this.calendarEl.querySelectorAll('[data-calendar-area="month"]')[0]
+    this.nextBtnEl = this.calendarEl.querySelectorAll('[data-calendar-toggle="next"]')[0]
+    this.previousBtnEl = this.calendarEl.querySelectorAll('[data-calendar-toggle="previous"]')[0]
+    this.monthLabelEl = this.calendarEl.querySelectorAll('[data-calendar-label="month"]')[0]
   }
 }
 
