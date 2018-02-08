@@ -106,7 +106,7 @@ class VanillaCalendar {
       'December'
     ]
 
-    this.calendar = calendarEl
+    this.calendar = document.querySelector(calendarEl)
 
     this.activeDates = null
     this.date = new Date()
