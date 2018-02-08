@@ -43,7 +43,9 @@ class VanillaCalendar {
 
     this.date.setDate(1)
     this.createMonth()
-    this.createListeners()
+
+    this.nextBtnEl.addEventListener('click', this.onNext.bind(this))
+    this.previousBtnEl.addEventListener('click', this.onPrevious.bind(this))
   }
 
   onNext () {
@@ -60,24 +62,18 @@ class VanillaCalendar {
     this.createMonth()
   }
 
-  createListeners () {
-    this.nextBtnEl.addEventListener('click', this.onNext.bind(this))
-    this.previousBtnEl.addEventListener('click', this.onPrevious.bind(this))
-  }
-
-  createDay (num, day) {
+  createDay (nthDayOfMonth, nthDayOfWeek) {
     const newDay = document.createElement('div')
-    const dateEl = document.createElement('span')
-    dateEl.innerHTML = num
+
     newDay.className = classes.date
     newDay.setAttribute('data-calendar-date', this.date)
 
     // if it's the first day of the month
-    if (num === 1) {
-      if (day === 0) {
+    if (nthDayOfMonth === 1) {
+      if (nthDayOfWeek === 0) {
         newDay.style.marginLeft = (6 * 14.28) + '%'
       } else {
-        newDay.style.marginLeft = ((day - 1) * 14.28) + '%'
+        newDay.style.marginLeft = ((nthDayOfWeek - 1) * 14.28) + '%'
       }
     }
 
@@ -93,7 +89,7 @@ class VanillaCalendar {
       newDay.classList.add(classes.dateToday)
     }
 
-    newDay.appendChild(dateEl)
+    newDay.innerHTML = `<span>${nthDayOfMonth}</span>`
     this.monthContainerEl.appendChild(newDay)
   }
 
