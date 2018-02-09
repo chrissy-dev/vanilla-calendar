@@ -1,6 +1,22 @@
 # Changelog
 
-All notable changes in this project is documented in this file. 
+All notable changes in this project is documented in this file.
+
+## Release [0.0.4]
+
+### Added
+- Eslint for establishing and maintaining a code style
+- Babel for transpiling from ES6
+- Webpack for bundling
+- Initialize library from HTML file
+- ES6 to ES2015 transformation
+
+### Changed
+- Component markup moved into the source code.
+- Method, class and variable definitions are written ES6 style.
+
+### Removed
+- Gulp
 
 ## Release [0.0.3]
 

@@ -46,10 +46,10 @@ window.addEventListener('load', function () {
 npm install
 ```
 
-2. Watch JS/CSS
+2. Prepare development environment JS/CSS
 
 ```bash
-npm run watch
+npm run dev
 ```
 
 ### I encourage everyone to hack away at this!

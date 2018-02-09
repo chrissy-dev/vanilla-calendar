@@ -1,10 +1,11 @@
 {
   "name": "vanilla-calendar",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple, hackable vanilla JS calendar",
   "main": "./src/vanillaCalendar.js",
   "scripts": {
-    "watch": "gulp watch"
+    "prepublish": "babel src --out-dir dist && cp ./src/vanillaCalendar.css ./dist/vanillaCalendar.css",
+    "dev": "cp ./src/vanillaCalendar.css ./docs/vanillaCalendar.css && webpack-dev-server --inline --hot --progress"
   },
   "repository": {
     "type": "git",
@@ -22,12 +23,12 @@
   },
   "homepage": "https://github.com/chrisssycollins/vanilla-calendar#readme",
   "devDependencies": {
-    "cssnano": "^3.10.0",
-    "gulp": "^3.9.1",
-    "gulp-postcss": "^7.0.1",
-    "gulp-uglify": "^3.0.0",
-    "postcss": "^6.0.16",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-hexrgba": "^1.0.0"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^4.17.0",
+    "eslint-loader": "^1.9.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
   }
 }
