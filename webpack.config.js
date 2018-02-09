@@ -1,13 +1,11 @@
 /* global __dirname, require, module*/
 
 const path = require('path')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
     entry: './src/vanillaCalendar.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         filename: 'vanillaCalendar.js',
         libraryTarget: 'umd',
         library: 'VanillaCalendar'
@@ -32,11 +30,8 @@ module.exports = {
              }
         ]
     },
-    plugins: [
-        new CopyWebpackPlugin([{
-            from: 'src',
-            ignore: ['index.html']
-        }]),
-        new CleanWebpackPlugin(['dist'])
-    ]
+    plugins: [],
+    devServer: {
+        contentBase: path.resolve(__dirname, 'docs')
+    }
 };
