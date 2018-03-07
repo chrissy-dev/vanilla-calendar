@@ -81,6 +81,26 @@
 		</svg>
 
 		<h1>Vanilla JS Calendar</h1>
+		<!-- User can select their year/month directly -->
+		<div id="v-cal_specific_date">
+			<div class="vcal-select-year">
+				<div>
+					<label>Select Year:</label>
+				</div>
+				<div>
+					<select id="v-cal_year_options"></select>
+				</div>
+			</div>
+			<div class="vcal-select-month">
+				<div>
+					<label>Select Month:</label>
+				</div>
+				<div>
+					<select id="v-cal_month_options"></select>
+				</div>
+			</div>
+		</div>
+		<!-- -->
 
 		<div id="v-cal">
 			<div class="vcal-header">
@@ -127,7 +147,9 @@
 	<script>
 		window.addEventListener('load', function () {
 			vanillaCalendar.init({
-				disablePastDays: true
+				disablePastDays: false,
+				minYear: 1900,
+				maxYear: 2030
 			});
 		})
 	</script>

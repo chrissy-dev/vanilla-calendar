@@ -2,6 +2,8 @@ var vanillaCalendar = {
   month: document.querySelectorAll('[data-calendar-area="month"]')[0],
   next: document.querySelectorAll('[data-calendar-toggle="next"]')[0],
   previous: document.querySelectorAll('[data-calendar-toggle="previous"]')[0],
+  yearSelector: document.querySelector('#v-cal_year_options'),
+  monthSelector: document.querySelector('#v-cal_month_options'),
   label: document.querySelectorAll('[data-calendar-label="month"]')[0],
   activeDates: null,
   date: new Date(),
@@ -10,6 +12,10 @@ var vanillaCalendar = {
   init: function (options) {
     this.options = options
     this.date.setDate(1)
+    this.options.minYear = (options.minYear) ? options.minYear : 1900
+    this.options.maxYear = (options.maxYear) ? options.maxYear : 2100
+    // initialize year and month selectors with options element
+    this.initSelectors()
     this.createMonth()
     this.createListeners()
   },
@@ -29,6 +35,23 @@ var vanillaCalendar = {
       _this.date.setMonth(prevMonth)
       _this.createMonth()
     })
+
+     // Clears the calendar and shows the selected year
+     this.yearSelector.addEventListener('change', function (event) {
+       // Note Here this.options refer to select DOM element
+       var year = parseInt(this.options.item(this.options.selectedIndex).id)
+       _this.clearCalendar()
+       _this.date.setFullYear(year)
+       _this.createMonth()
+     });
+     // Clears the calendar and shows the selected month
+     this.monthSelector.addEventListener('change', function (event) {
+       // Note Here this.options refer to select DOM element
+       var mon = parseInt(this.options.item(this.options.selectedIndex).id)
+       _this.clearCalendar()
+       _this.date.setMonth(mon)
+       _this.createMonth()
+     });
   },
 
   createDay: function (num, day, year) {
@@ -122,6 +145,33 @@ var vanillaCalendar = {
   removeActiveClass: function () {
     for (var i = 0; i < this.activeDates.length; i++) {
       this.activeDates[i].classList.remove('vcal-date--selected')
+    }
+  },
+
+  initSelectors: function () {
+
+    var option
+    // fill yearOptions with options
+    for (var year = this.options.maxYear; year >= this.options.minYear; year--) {
+      option = document.createElement('option')
+      option.setAttribute('id', year)
+      if (year === this.date.getFullYear()) {
+        option.setAttribute('selected', true);
+      }
+      option.innerHTML = year
+      this.yearSelector.appendChild(option)
+    }
+
+    // fill monthOptions with options
+    for (var mon = 0; mon <= 11; mon++) {
+      option = document.createElement('option')
+      option.setAttribute('id', mon)
+      if (mon === this.date.getMonth()) {
+        option.setAttribute('selected', true);
+      }
+
+      option.innerHTML = this.monthsAsString(mon)
+      this.monthSelector.appendChild(option)
     }
   }
 }
