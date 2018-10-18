@@ -1,8 +1,8 @@
 var vanillaCalendar = {
-  month: document.querySelectorAll('[data-calendar-area="month"]')[0],
-  next: document.querySelectorAll('[data-calendar-toggle="next"]')[0],
-  previous: document.querySelectorAll('[data-calendar-toggle="previous"]')[0],
-  label: document.querySelectorAll('[data-calendar-label="month"]')[0],
+  month: document.querySelector('[data-calendar-area="month"]'),
+  next: document.querySelector('[data-calendar-toggle="next"]'),
+  previous: document.querySelector('[data-calendar-toggle="previous"]'),
+  label: document.querySelector('[data-calendar-label="month"]'),
   activeDates: null,
   date: new Date(),
   todaysDate: new Date(),
@@ -10,6 +10,7 @@ var vanillaCalendar = {
   init: function (options) {
     this.options = options
     this.date.setDate(1)
+    this.createWeek()
     this.createMonth()
     this.createListeners()
   },
@@ -34,6 +35,8 @@ var vanillaCalendar = {
   createDay: function (num, day, year) {
     var newDay = document.createElement('div')
     var dateEl = document.createElement('span')
+    var dayOffset = this.options.sundayFirst ? day : day - 1
+    var margin = this.options.rtl ? 'marginRight' : 'marginLeft'
     dateEl.innerHTML = num
     newDay.className = 'vcal-date'
     newDay.setAttribute('data-calendar-date', this.date)
@@ -41,9 +44,11 @@ var vanillaCalendar = {
     // if it's the first day of the month
     if (num === 1) {
       if (day === 0) {
-        newDay.style.marginLeft = (6 * 14.28) + '%'
+        if (!this.options.sundayFirst) {
+          newDay.style[margin] = (6 * 14.28) + '%'
+        }
       } else {
-        newDay.style.marginLeft = ((day - 1) * 14.28) + '%'
+        newDay.style[margin] = (dayOffset * 14.28) + '%'
       }
     }
 
@@ -60,6 +65,36 @@ var vanillaCalendar = {
 
     newDay.appendChild(dateEl)
     this.month.appendChild(newDay)
+  },
+
+  createWeek: function () {
+    var weekDays = [
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+        'Sun',
+      ],
+      sunday = weekDays.pop(),
+      weekWrap = document.querySelector('.vcal-week'),
+      weekDay = '';
+    if (this.options.rtl) {
+      weekWrap.classList.add('rtl');
+    }
+    for (var i = 0; i < weekDays.length; i++) {
+      weekDay = document.createElement('span');
+      weekDay.innerHTML = weekDays[i];
+      weekWrap.appendChild(weekDay);
+    }
+    weekDay = document.createElement('span');
+    weekDay.innerHTML = sunday;
+    if (!this.options.sundayFirst) {
+      weekWrap.appendChild(weekDay);
+    } else {
+      weekWrap.insertBefore(weekDay, weekWrap.firstChild);
+    }
   },
 
   dateClicked: function () {
@@ -96,6 +131,9 @@ var vanillaCalendar = {
     this.label.innerHTML =
       this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
     this.dateClicked()
+    if (this.options.rtl) {
+      this.month.classList.add('rtl');
+    }
   },
 
   monthsAsString: function (monthIndex) {
