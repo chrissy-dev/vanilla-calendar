@@ -22,6 +22,10 @@
   width: 100%;
 }
 
+#v-cal .rtl {
+  direction: rtl;
+}
+
 #v-cal .vcal-btn {
   -moz-user-select: none;
   -ms-user-select: none;
